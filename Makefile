@@ -14,6 +14,7 @@ all: 2dflowvel
 dist:
 	@mkdir ${PROG}-${VERSION}
 	@cp ${SOURCES} ${PROG}-${VERSION}
+	@cp Makefile ${PROG}-${VERSION}
 	@tar cvfz ${PROG}-${VERSION}.tar.gz ${PROG}-${VERSION} 
 	@rm -rf ${PROG}-${VERSION}
 
