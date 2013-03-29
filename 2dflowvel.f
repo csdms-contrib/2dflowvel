@@ -72,8 +72,8 @@ C  Define Wind Stresses and Zero Out Velocity Variables
 C-----------------------------------------------------------------------
       TSX = CS*WX*SQRT(WX**2+WY**2)
       TSY = CS*WY*SQRT(WX**2+WY**2)
-      SNX = SIGN(1D0,TSX)
-      SNY = SIGN(1D0,TSY)
+      SNX = SIGN(1.,TSX)
+      SNY = SIGN(1.,TSY)
       TS = SQRT(TSX**2+TSY**2)
       G = 9.81
       PI = 3.1459
@@ -181,14 +181,18 @@ C-----------------------------------------------------------------------
             UN(I,J) = 0.0
             VN(I,J) = -Z(I,J)*SQRT(G/H(I,J))
    24       CONTINUE
-            ZR1 = Z(I,J) - ZI(I,J)
-            ZR2 = Z(I,J+1) - ZI(I,J+1)
-            ZI(I,J) = AMPL*DSIN(2.0*PI*(N-1)*DT/PER)
-            C = SQRT(G*H(I,J))
-            L = C*PER
-            ZI(I,J+1) = AMPL*DSIN(2.0*PI*(N-1)*DT/PER-DX/L)
-            ZR1 = ZR1 + DT/DX*C*(ZI(I,J+1)-ZI(I,J))
-            Z(I,J) = ZI(I,J) + ZR1
+C            ZR1 = Z(I,J) - ZI(I,J)
+C           ZR2 = Z(I,J+1) - ZI(I,J+1)
+C           ZI(I,J) = AMPL*DSIN(2.0*PI*(N-1)*DT/PER)
+C           C = SQRT(G*H(I,J))
+C           L = C*PER
+C           ZI(I,J+1) = AMPL*DSIN(2.0*PI*(N-1)*DT/PER-DX/L)
+C           ZR1 = ZR1 + DT/DX*C*(ZI(I,J+1)-ZI(I,J))
+C           Z(I,J) = ZI(I,J) + ZR1
+C           Flather BC (courtesy of Paul Meijer (Utrecht))
+            un(i,j)= 0.0
+            vn(i,j)= -sqrt(g/h(i,j))*( z(i,j) -
+     &        ampl*dsin(2.0*pi*(n-1)*dt/per))
    25       CONTINUE
    26    CONTINUE
 C-----------------------------------------------------------------------
