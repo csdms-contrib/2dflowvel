@@ -72,8 +72,8 @@ C  Define Wind Stresses and Zero Out Velocity Variables
 C-----------------------------------------------------------------------
       TSX = CS*WX*SQRT(WX**2+WY**2)
       TSY = CS*WY*SQRT(WX**2+WY**2)
-      SNX = SIGN(1.,TSX)
-      SNY = SIGN(1.,TSY)
+      SNX = SIGN(DBLE(1.),TSX)
+      SNY = SIGN(DBLE(1.),TSY)
       TS = SQRT(TSX**2+TSY**2)
       G = 9.81
       PI = 3.1459
